@@ -80,7 +80,7 @@ export default function SinglePost() {
     // setAmount(total);
 
     try {
-      if (window.confirm("Check Total Amount Show on Site :"))
+      if (window.confirm('THANK YOU ENJOY THE VACCATIONS'))
         await axios.post("/book", newPost);
     } catch (err) {}
   };
@@ -249,25 +249,28 @@ export default function SinglePost() {
           <form onSubmit={handleSubmit}>
             <span className="add">
               Enter Name :{" "}
-              <input type="text" onChange={(e) => setName(e.target.value)} />
+              <input type="text" required="true" maxLength={12} onChange={(e) => setName(e.target.value)} />
             </span>
             <span className="add">
               Enter Adhar Number :{" "}
-              <input type="text" onChange={(e) => setAdhar(e.target.value)} />
+              
+              
+              <input type="text" required="true" onChange={(e) => setAdhar(e.target.value)} />
             </span>
             <span className="add">
               from :{" "}
               <input
                 type="date"
+                required="true"
                 onChange={(e) => setFromDate(e.target.value)}
               />
               To :
-              <input type="date" onChange={(e) => setToDate(e.target.value)} />
+              <input type="date" required="true" onChange={(e) => setToDate(e.target.value)} />
             </span>
 
             <span className="add">
               People (eg. 01,02,03):{" "}
-              <input type="text" onChange={(e) => calCharge(e.target.value)} />
+              <input type="text" required="true"onChange={(e) => calCharge(e.target.value)} />
             </span>
             <span className="add">Total Amount :{amount}</span>
             <button type="submit">Book</button>

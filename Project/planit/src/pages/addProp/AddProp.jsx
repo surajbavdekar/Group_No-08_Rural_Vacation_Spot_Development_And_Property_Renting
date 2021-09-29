@@ -15,6 +15,7 @@ export default function AddProp() {
   const [categories, setCategories] = useState("");
   const [options, setoptions] = useState("");
   const [phone, setPhone] = useState("");
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchSpots = async () => {
@@ -52,6 +53,7 @@ export default function AddProp() {
     }
     try {
       const res = await axios.post("/posts", newPost);
+      console.log(res);
       window.location.replace("/post/" + res.data._id);
     } catch (err) {}
   };
@@ -68,6 +70,7 @@ export default function AddProp() {
           <input
             id="fileInput"
             type="file"
+            required="true"
             style={{ display: "none" }}
             onChange={(e) => setFile(e.target.files[0])}
           />
@@ -75,6 +78,7 @@ export default function AddProp() {
             className="addpropInput"
             placeholder="Title"
             type="text"
+            required="true"
             autoFocus={true}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -83,6 +87,7 @@ export default function AddProp() {
           <textarea
             placeholder="Write about your Property..."
             type="text"
+            required="true"
             className="addpropInput addpropText"
             // autoFocus={flase}}
             onChange={(e) => setDesc(e.target.value)}
@@ -91,6 +96,7 @@ export default function AddProp() {
         <div className="addpropFormGroup1">
           <input
             type="text"
+            required="true"
             className="addpropInput addpropText1"
             placeholder="Address"
             onChange={(e) => setAddress(e.target.value)}
@@ -101,6 +107,7 @@ export default function AddProp() {
             menuClassName="dropdown-content"
             onChange={(e) => setCategories(e.value)}
             options={options}
+            required="true"
             placeholder="Select Spot"
           />
         </div>
@@ -109,11 +116,13 @@ export default function AddProp() {
             type="text"
             className="addpropInput addpropText1"
             placeholder="Charges"
+            required="true"
             onChange={(e) => setCharges(e.target.value)}
           />
           <br />
           <input
             type="text"
+            required="true"
             className="addpropInput addpropText1 "
             placeholder="City"
             onChange={(e) => setCity(e.target.value)}
@@ -122,17 +131,27 @@ export default function AddProp() {
         </div>
         <div className="addpropFormGroup1">
           <input
-            type="text"
+            type="tel"
+            error={isError}
+            value={phone}
+            maxLength={10}
             className="addpropInput addpropText1 "
-            placeholder="Enter Contact No."
-            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Enter Contact N.o."
+            onChange={(e) => {setPhone(e.target.value)
+              if (e.target.value.length >10 ) {
+                document.getElementById("error1").innerHTML="Please check No"
+                
+              }}
+            }
           />
           <br />
         </div>
-      </form>
-      <button className="addSub" type="submit">
+        <div id="error1"></div>
+        <button className="addSub" type="submit">
         SAVE
       </button>
+      </form>
+     
     </div>
   );
 }
